@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <!-- Import Bootstrap -->
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <!-- Styling File -->
+    <link rel="stylesheet" href="css/home.css" />
+  </head>
+  <body>
+    <!--
+      =========== Modals =========== 
+    -->
+    <!-- Login Modal-->
+    <div
+      class="modal fade"
+      id="login-modal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label"
+                  >Username</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username-input"
+                  value="Dragon"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password-input"
+                  value="123456"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="login-submit-btn">
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ======================== -->
+    <!-- ==== ALETRS ==== -->
+    <div id="success-alert" class="fade show"></div>
+
+    <!--  -->
+    <!--  -->
+    <!--START NAV BAR CONTAINER -->
+    <div class="container d-flex justify-content-center">
+      <div class="col-9">
+        <nav
+          class="navbar navbar-expand-lg bg-body-tertiary shadow rounded pt-3"
+        >
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Tarmeez</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Profile</a>
+                </li>
+              </ul>
+              <!-- NON -- Logged in -->
+              <div class="d-flex justify-content-end w-100">
+                <button
+                  id="login-btn"
+                  type="button"
+                  class="btn btn-outline-success mx-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#login-modal"
+                >
+                  Login
+                </button>
+                <button
+                  id="register-btn"
+                  type="button"
+                  class="btn btn-outline-success"
+                >
+                  Register
+                </button>
+                <!-- Logged in -->
+                <button
+                  id="logout-btn"
+                  type="button"
+                  class="btn btn-outline-danger mx-2"
+                  data-bs-target="#login-modal"
+                  onclick="logout()"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <!--END NAV BAR CONTAINER-->
+    <div class="container d-flex justify-content-center mt-5">
+      <div class="col-9">
+        <div id="posts">
+          <div class="card">
+            <div class="card-header">
+              <img
+                src="./media/img1.jpg"
+                alt=""
+                class="rounded-circle border border-2"
+                style="width: 40px; height: 40px"
+              />
+              <b>@dragon</b>
+            </div>
+            <div class="card-body">
+              <img src="./media/post.jpg" alt="" class="w-100" />
+              <h6 class="mt-1" style="color: rgb(165, 165, 165)">
+                2 minute ago
+              </h6>
+              <h5>Hallo World</h5>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Similique fugiat consequatur at nesciunt, alias amet repellendus
+                dolores assumenda, omnis reiciendis temporibus. Beatae veritatis
+                repudiandae, obcaecati at consectetur dolor aperiam eligendi.
+              </p>
+              <hr />
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-pen"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"
+                  />
+                </svg>
+                <span>(3) Comments</span>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <img
+                src="./media/img1.jpg"
+                alt=""
+                class="rounded-circle border border-2"
+                style="width: 40px; height: 40px"
+              />
+              <b>@dragon</b>
+            </div>
+            <div class="card-body">
+              <img src="./media/post.jpg" alt="" class="w-100" />
+              <h6 class="mt-1" style="color: rgb(165, 165, 165)">
+                2 minute ago
+              </h6>
+              <h5>Hallo World</h5>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Similique fugiat consequatur at nesciunt, alias amet repellendus
+                dolores assumenda, omnis reiciendis temporibus. Beatae veritatis
+                repudiandae, obcaecati at consectetur dolor aperiam eligendi.
+              </p>
+              <hr />
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-pen"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"
+                  />
+                </svg>
+                <span>(3) Comments</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
