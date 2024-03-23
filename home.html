@@ -71,13 +71,156 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" id="login-submit-btn">
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="login-submit-btn"
+              onclick="loginBtnClicked();"
+            >
               Login
             </button>
           </div>
         </div>
       </div>
     </div>
+    <!-- Register Modal-->
+    <div
+      class="modal fade"
+      id="register-modal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Register</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="register-name-input"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label"
+                  >Username</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="register-username-input"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="register-password-input"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="login-submit-btn"
+              onclick="registerBtnClicked();"
+            >
+              Register
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Create Post Modal-->
+    <div
+      class="modal fade"
+      id="create-post-modal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Create A New Post
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Title</label>
+                <input type="text" class="form-control" id="post-title-input" />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Body</label>
+                <textarea
+                  name=""
+                  id="post-body-input"
+                  class="form-control"
+                ></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="login-submit-btn"
+              onclick="createNewPostClicked();"
+            >
+              Create
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ======================== -->
+    <div
+      id="add-btn"
+      class="bg-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#create-post-modal"
+    >
+      +
+    </div>
+
     <!-- ======================== -->
     <!-- ==== ALETRS ==== -->
     <div id="success-alert" class="fade show"></div>
@@ -128,6 +271,8 @@
                 <button
                   id="register-btn"
                   type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#register-modal"
                   class="btn btn-outline-success"
                 >
                   Register
