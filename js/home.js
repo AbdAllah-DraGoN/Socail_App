@@ -28,9 +28,9 @@ function getPosts(reload = true, page = 1) {
         document.getElementById("posts").innerHTML = "";
       }
       // Because it there alot of pages
-      lastPage = 2;
+      // lastPage = 2;
 
-      // lastPage = response.data.meta.last_page;
+      lastPage = response.data.meta.last_page;
       // =================
       for (post of posts) {
         const user = getCurrentUser();

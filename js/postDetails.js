@@ -9,28 +9,39 @@ const id = urlPrams.get("postId");
 getPost();
 // ==========================================
 function getPost() {
-  axios.get(`${baseUrl}/posts/${id}`).then((response) => {
-    let post = response.data.data;
-    let comments = post.comments;
-    // =================
-    document.getElementById("authorName").innerHTML = post.author.name;
-    // =================
-    let title;
-    title = post.title || "";
+  toggleLoader(true);
+  axios
+    .get(`${baseUrl}/posts/${id}`)
+    .then((response) => {
+      toggleLoader(false);
+      let post = response.data.data;
+      let comments = post.comments;
+      // =================
+      document.getElementById("authorName").innerHTML = post.author.name;
+      // =================
+      let title;
+      title = post.title || "";
 
-    createPost(
-      post.author.profile_image,
-      post.author.username,
-      post.image,
-      post.created_at,
-      title,
-      post.body,
-      post.comments_count,
-      post.id,
-      post.tags,
-      comments
-    );
-  });
+      createPost(
+        post.author.profile_image,
+        post.author.username,
+        post.image,
+        post.created_at,
+        title,
+        post.body,
+        post.comments_count,
+        post.id,
+        post.tags,
+        comments
+      );
+      setupUI();
+    })
+    .catch((error) => {
+      toggleLoader(false);
+      console.log(error.response.data);
+      const errorMessage = error.response.data.message;
+      showAlert(errorMessage, "danger");
+    });
 }
 /*
 =======================
@@ -154,6 +165,7 @@ function createPost(
 // ===========================================
 // ===========================================
 function writeComment() {
+  toggleLoader(true);
   let commentInput = document.getElementById("add-comment-input").value;
   let token = localStorage.getItem("token");
   // ------------------------------------
@@ -171,6 +183,7 @@ function writeComment() {
       headers: headers,
     })
     .then((response) => {
+      toggleLoader(false);
       // console.log(response);
       showAlert("Comment Added Successfully");
       getPost();
@@ -178,6 +191,7 @@ function writeComment() {
       commentInput = "";
     })
     .catch((error) => {
+      toggleLoader(false);
       console.log(error);
       showAlert("Can't Add Empty Comment", "danger");
     });

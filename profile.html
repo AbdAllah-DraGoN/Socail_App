@@ -13,6 +13,20 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <!-- Loader Code -->
+    <div class="loader" id="loader">
+      <div class="lds-roller">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <!-- ====Loader Code==== -->
     <!--
       =========== Modals =========== 
     -->
@@ -363,24 +377,24 @@
       <div class="col-9">
         <!-- Main Info -->
         <div class="card shadow">
-          <div class="card-body row">
-            <div class="col-2 d-flex align-items-center">
+          <div class="card-body row d-flex flex-column align-items-center">
+            <div class="col-10 d-flex justify-content-center mb-4">
               <img
                 src="./media/3.png"
                 alt=""
                 id="profile-header-img"
                 class="rounded-circle"
-                style="width: 110%"
+                style="width: 80%"
               />
             </div>
             <div
-              class="user-main-info col-4 d-flex flex-column justify-content-evenly"
+              class="user-main-info col-10 d-flex flex-column align-content-center justify-content-evenly mb-3"
             >
               <h3 id="profile-username">The_Dragon</h3>
               <h3 id="profile-name">Dragon</h3>
               <h3 id="profile-email">dragon@gamil.com</h3>
             </div>
-            <div class="col-4 d-flex flex-column justify-content-evenly">
+            <div class="col-10 d-flex justify-content-evenly mb-3">
               <div class="number-info">
                 <span id="profile-posts-count">14</span> Posts
               </div>

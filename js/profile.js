@@ -21,7 +21,9 @@ function getUser() {
 // ===========================
 // ===========================
 function getPosts() {
+  toggleLoader(true);
   axios.get(`${baseUrl}/users/${userId}/posts`).then((response) => {
+    toggleLoader(false);
     let posts = response.data.data;
     document.getElementById("user-posts").innerHTML = "";
     // =================

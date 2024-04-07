@@ -61,9 +61,10 @@ body {
 .number-info {
   color: #acacac;
   font-weight: 100;
+  font-size: 20px;
 }
 .number-info span {
-  font-size: 50px;
+  font-size: 70px;
   color: #000;
 }
 
