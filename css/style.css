@@ -25,6 +25,7 @@ body {
   line-height: 0.7;
   cursor: pointer;
   box-shadow: 0 10px 10px #0003;
+  z-index: 999;
 }
 
 #post-body-input {
