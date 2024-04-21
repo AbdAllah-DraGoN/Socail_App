@@ -280,14 +280,16 @@ function showAlert(alertMsg, status = "success") {
     alertPlaceholder.append(wrapper);
   };
   alert(alertMsg, status);
-  // LastTodo: Hide THe Alert
-  setTimeout(() => {
-    document.getElementById("alert-close-btn").click();
 
-    // Fault Way ===================
-    // const hideAlert = bootstrap.Alert.getOrCreateInstance("#success-alert");
-    // hideAlert.close();
+  //  Hide THe Alert
+  setTimeout(() => {
+    if (document.getElementById("alert-close-btn") != null) {
+      document.getElementById("alert-close-btn").click();
+    }
   }, 3500);
+  // Fault Way ===================
+  // const hideAlert = bootstrap.Alert.getOrCreateInstance("#success-alert");
+  // hideAlert.close();
 }
 // ===================================
 

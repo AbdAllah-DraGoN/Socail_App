@@ -32,7 +32,7 @@ function getPosts(reload = true, page = 1) {
 
       lastPage = response.data.meta.last_page;
       // =================
-      for (post of posts) {
+      posts.forEach((post) => {
         const user = getCurrentUser();
         let isMyPost = user != null && post.author.id == user.id;
         let editBtnContent = ``;
@@ -51,6 +51,7 @@ function getPosts(reload = true, page = 1) {
         let title;
         title = post.title || "";
         createPost(
+          post.author.id,
           post.author.profile_image,
           post.author.username,
           post.image,
@@ -58,9 +59,42 @@ function getPosts(reload = true, page = 1) {
           title,
           post.body,
           post.comments_count,
-          editBtnContent
+          editBtnContent,
+          post.id,
+          post.tags
         );
-      }
+      });
+
+      // ================= Old Way
+      // for (post of posts) {
+      //   const user = getCurrentUser();
+      //   let isMyPost = user != null && post.author.id == user.id;
+      //   let editBtnContent = ``;
+      //   if (isMyPost) {
+      //     editBtnContent = `
+      //   <button class="btn btn-danger ms-2"
+      //     onclick="deletePost('${encodeURIComponent(JSON.stringify(post))}')">
+      //     Delete
+      //   </button>
+      //   <button id="edit-post-btn" class="btn btn-warning ms-2"
+      //     onclick="editPost('${encodeURIComponent(JSON.stringify(post))}')">
+      //     Edit
+      //   </button>`;
+      //   }
+      //   // -----------
+      //   let title;
+      //   title = post.title || "";
+      //   createPost(
+      //     post.author.profile_image,
+      //     post.author.username,
+      //     post.image,
+      //     post.created_at,
+      //     title,
+      //     post.body,
+      //     post.comments_count,
+      //     editBtnContent
+      //   );
+      // }
     })
     .catch((error) => {
       toggleLoader(false);
@@ -73,6 +107,7 @@ function getPosts(reload = true, page = 1) {
 =======================
 */
 function createPost(
+  authorid,
   profileImg,
   userName,
   imgSrc,
@@ -80,12 +115,14 @@ function createPost(
   title,
   body,
   commentsCount,
-  editBtnContent
+  editBtnContent,
+  postId,
+  tags
 ) {
   let content = `
 <div class="card shadow">
   <div class="card-header d-flex justify-content-between">
-    <div onclick="userClicked(${post.author.id})" style="cursor: pointer;">
+    <div onclick="userClicked(${authorid})" style="cursor: pointer;">
       <img
         src="${profileImg}"
         alt=""
@@ -98,7 +135,7 @@ function createPost(
     ${editBtnContent}
     </div>
   </div>
-  <div class="card-body" onclick="postClicked(${post.id})" style="cursor: pointer;">
+  <div class="card-body" onclick="postClicked(${postId})" style="cursor: pointer;">
     <img src="${imgSrc}" alt="" class="w-100" />
     <h6 class="mt-1" style="color: rgb(165, 165, 165)">
     ${time}
@@ -122,7 +159,7 @@ function createPost(
         />
       </svg>
       <span>(${commentsCount}) Comments</span>
-      <span id="post-tags${post.id}">
+      <span id="post-tags${postId}">
         <button class="btn btn-sm rounded-5" style="background-color: gray;color: #fff;"></button>
       </span>
     </div>
@@ -131,9 +168,9 @@ function createPost(
 `;
   document.getElementById("posts").innerHTML += content;
   // ADD TAGS
-  let currentPost = `post-tags${post.id}`;
+  let currentPost = `post-tags${postId}`;
   document.getElementById(currentPost).innerHTML = "";
-  for (tag of post.tags) {
+  for (tag of tags) {
     console.log(tag.name);
     let tagsContent = `
         <button class="btn btn-sm rounded-5" style="background-color: gray;color: #fff;">
