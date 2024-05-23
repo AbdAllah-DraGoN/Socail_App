@@ -19,7 +19,7 @@
 - **Integration**:
   - Axios library for API integration
 
-## Installation
-To run this project locally, follow these steps:
+## Preview
+  https://abdallah-dragon.github.io/Socail_App/
 
 
